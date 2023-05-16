@@ -1,0 +1,25 @@
+<!--usamos el archivo base.html para tener la estructura de pagina y no volver a escribir codigo html -->
+{% extends "base.html" %}
+
+<!--Aqui escribimos le titulo de la pagina y cuando se renderice la pagina aparece dicho titulo-->
+{% block titulo %} Agregar equipo {% endblock %}
+
+<!--Aqui como con el titulo escribimo el contenido de la pagina-->
+{% block contenido %} 
+
+<div class="card">
+    <div class="card-header">
+        Registrar equipo
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Datos del equipo</h4>
+        <!--Incluyo el formulario.html en la pagina crear-->
+        {% include 'inventario/formulario.html' %}
+
+    </div>
+    <div class="card-footer text-muted">
+
+    </div>
+</div>
+
+{% endblock %}

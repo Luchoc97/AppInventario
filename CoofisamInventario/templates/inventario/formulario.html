@@ -1,0 +1,31 @@
+<form enctype="multipart/form-data" method="post" action="">
+  {% csrf_token %}
+
+  <!--recorro cada campo del form, el "formulario" está en el bucle es la variable que declaramos en el archivo "views.py", esto lo que hace es mostrar campos en relacion si tiene informacion, es decir si tengo cinco columnas y solo dos tienen informacion django nos mostrara dos campos de formulario-->
+  {% for campo in formulario %}
+    <div class="mb-3">
+      <!--espeficia el label de cada campo dinamicamente-->
+      <label for="" class="form-label">{{ campo.label}}</label>
+      <br>
+      {% if campo.field.widget.input_type == "file" and campo.value %}
+      <img src="{{MEDIA_URL}}/fotos/{{campo.value}}" width="100" alt="">
+      
+      {% endif%}
+
+      <!--obtiene e identifica el tipo de dato de la informacion de ese campo-->
+      <input type="{{ campo.field.widget.input_type }}"
+        class="form-control" 
+        name="{{ campo.name }}" 
+        id="" 
+        aria-describedby="helpId" 
+        placeholder="{{ campo.label }}" 
+        
+        value="{{ campo.value | default:'' }}">
+      <!--value="{{ campo.value | default:'' }}" nos permite recuperar los datos del registro cuando se pulsa el btn de editar -->
+    <div class="col-12 help-text"> {{campo.errors}} </div>
+    </div>
+    {% endfor %}
+
+    <input name="" id="" class="btn btn-danger" type="submit" value="Enviar">
+    <a name="" id="" class="btn btn-danger" href="{% url 'pagInventario' %}" role="button">Cancelar</a>
+</form>

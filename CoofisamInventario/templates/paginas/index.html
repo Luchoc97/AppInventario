@@ -1,0 +1,18 @@
+<!--usamos el archivo base.html para tener la estructura de pagina y no volver a escribir codigo html -->
+{% extends "base.html" %}
+
+<!--Aqui escribimos le titulo de la pagina y cuando se renderice la pagina aparece dicho titulo-->
+{% block titulo %} Inicio {% endblock %}
+
+<!--Aqui como con el titulo escribimo el contenido de la pagina-->
+{% block contenido %} 
+<hr>
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Inventario equipos Coofisam</h1>
+      <hr>
+      <a name="" id="" class="btn btn-danger" href="{% url 'pagInventario' %}" role="button">Consultar inventario</a>
+    </div>
+  </div>
+
+{% endblock %}

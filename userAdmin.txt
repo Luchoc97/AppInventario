@@ -1,0 +1,3 @@
+usuario administrador de aplicacion en Django
+user: adminCoof
+pass: Coof.2023

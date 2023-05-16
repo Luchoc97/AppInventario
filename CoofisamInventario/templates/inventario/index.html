@@ -1,0 +1,105 @@
+<!--usamos el archivo base.html para tener la estructura de pagina y no volver a escribir codigo html -->
+{% extends "base.html" %}
+
+<!--Aqui escribimos le titulo de la pagina y cuando se renderice la pagina aparece dicho titulo-->
+{% block titulo %} Inventario Coofisam {% endblock %}
+
+<!--Aqui como con el titulo escribimo el contenido de la pagina-->
+{% block contenido %} 
+<hr>
+<div class="card">
+    <div class="card">
+        <div class="card-header">
+            <h2>Inventario</h2>
+            <a name="" id="" class="btn btn-danger" href="{% url 'pagCrear' %}" role="button">Agregar equipo</a>
+            <hr>
+            <!--<input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Buscar por placa">-->
+            <form action="{% url 'buscar' %}" method="GET">
+                <input type="text" name="consulta" class="form-control" placeholder="Buscar por placa">
+                <br>
+                <button class="btn btn-danger" type="submit">Buscar</button>
+                <a name="" id="" class="btn btn-danger" href="{% url 'pagInventario' %}">Todos los registros</a>
+            </form>
+
+        <div class="card-body">
+            <div class="card-title">
+                <h3>Equipos Registrados</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <!--<th scope="col">ID</th>-->
+                            <th scope="col">Número de placa</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Especificaciones técnicas</th>
+                            <th scope="col">Persona asignada</th>
+                            <th scope="col">Observaciones</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--recorre la consulta que se pasa en el archivo "views" e imprime en la tabla los datos que hay en la bd-->
+                        {% for equipo in invEquipos %}
+                            <tr class="">
+                                <!--<td>{{ equipo.id}}</td>-->
+                                <td>{{ equipo.placa }}</td>
+                                <td>{{ equipo.marca }}</td>
+                                <td>{{ equipo.referencia }}</td>
+                                <td>{{ equipo.especificaciones }}</td>
+                                <td>{{ equipo.persona }}</td>
+                                <td>{{ equipo.observaciones }}</td>
+                                <td>
+                                    {% if equipo.foto %}
+                                        <img src="{{ equipo.foto.url }}" height="100" alt="foto Equipo">
+                                    {% else %}
+                                        <!-- Si no hay foto, mostrar imagen predeterminada o dejar en blanco -->
+                                    {% endif %}
+                                </td>
+                                <td><a name="" id="" class="btn btn-danger" href="{% url 'pagEditar' equipo.placa %}" role="button">Editar</a> 
+                                    |                             
+                                    <a name="" id="" class="btn btn-danger" href="{% url 'pagEliminar' equipo.placa %}" role="button">Borrar</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                        <!--si se pulsa el boton de tipo envio o "submit" del formulario muestra los registros que coinciden con la placa digitada-->
+                        {% if query %}
+                            {% for equipo in resultados %}
+                            <tr class="">
+                                <!--<td>{{ equipo.id}}</td>-->
+                                <td>{{ equipo.placa }}</td>
+                                <td>{{ equipo.marca }}</td>
+                                <td>{{ equipo.referencia }}</td>
+                                <td>{{ equipo.especificaciones }}</td>
+                                <td>{{ equipo.persona }}</td>
+                                <td>{{ equipo.observaciones }}</td>
+                                <td>
+                                    {% if equipo.foto %}
+                                        <img src="{{ equipo.foto.url }}" height="100" alt="foto Equipo">
+                                    {% else %}
+                                        <!-- Si no hay foto, mostrar imagen predeterminada o dejar en blanco -->
+                                    {% endif %}
+                                </td>
+                                <td><a name="" id="" class="btn btn-danger" href="{% url 'pagEditar' equipo.placa %}" role="button">Editar</a> 
+                                    |                             
+                                    <a name="" id="" class="btn btn-danger" href="{% url 'pagEliminar' equipo.placa %}" role="button">Borrar</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                                <p>No se encontraron resultados.</p>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div class="card-footer text-muted">
+
+        </div>
+    </div>
+
+{% endblock %}

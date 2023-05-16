@@ -1,0 +1,4 @@
+abrimos la cmd en documentos
+escribimos "pipenv shell"
+entramos a la carpeta del proyecto
+ejecutamos "py manage.py runserver"
